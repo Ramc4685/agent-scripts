@@ -5,6 +5,33 @@ description: "Claude Code work routing: delegate implementation, fixing, explora
 
 # Codex First
 
+## Launch flags — read first, copy verbatim
+
+Every Codex worker, **fresh or resumed**, passes all three: Astra, high
+reasoning, **Fast service tier**. Missing Fast is the most common mistake: a
+2026-09-27 campaign ran eight lanes for hours on the standard tier because a
+hand-written wrapper kept `-m`/effort and dropped the Fast flags.
+
+```bash
+# fresh
+codex exec --yolo -C "$WT" \
+  -m gpt-6-astra -c 'model_reasoning_effort="high"' \
+  --enable fast_mode -c 'service_tier="fast"' \
+  -o "$OUT" - < "$ORDER"
+# resume: pass the same three again; resume does not inherit them
+codex exec resume "$SID" --dangerously-bypass-approvals-and-sandbox \
+  -m gpt-6-astra -c 'model_reasoning_effort="high"' \
+  --enable fast_mode -c 'service_tier="fast"' -o "$OUT" -
+```
+
+- Never hand-roll a subset. Copy these lines into any wrapper or launch
+  script; after editing a wrapper, `grep 'service_tier="fast"'` it.
+- Verify running workers: `ps -axo command | grep 'codex exec' | grep -v
+  'service_tier="fast"'` must print nothing for your workers; restart any it
+  lists.
+- Autoreview: `--engine codex --model gpt-6-astra --thinking high
+  --codex-speed fast`.
+
 ## Hard gate
 
 **Autoreview exception:** always prefer Codex-backed `$autoreview`, independent

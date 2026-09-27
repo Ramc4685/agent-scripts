@@ -6,6 +6,8 @@ summary: Timeline of guardrail helper changes mirrored from Sweetistics and rela
 
 ## Unreleased
 
+- Put Codex worker launch flags first in `codex-first`: copy-verbatim fresh/resume lines with Fast service tier, a no-subset rule, and a running-worker check.
+
 - Upload macOS release archives before publishing, preserve release/tag/commit state on failures, retry transient enclosure downloads, and retain changelog section spacing in release notes.
 
 - Correct Octopool calling guidance for native JSON bundles, pagination, caller-owned headers, exact-run CI verification, and sandbox coverage.
