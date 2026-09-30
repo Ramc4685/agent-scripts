@@ -22,6 +22,9 @@ jobs:
         with:
           bun-version: 1.4.0
 
+      - name: Validate skill metadata
+        run: scripts/validate-skills
+
       - name: Check shell helper syntax
         run: |
           bash -n scripts/sync-skills
@@ -73,6 +76,7 @@ jobs:
       - name: Build browser helper
         run: |
           bun install --frozen-lockfile
+          bun test scripts/browser-tools-profile.test.ts
           bun build scripts/browser-tools.ts --compile --target bun --outfile /tmp/browser-tools
           /tmp/browser-tools --help
 
