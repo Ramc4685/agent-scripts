@@ -6,6 +6,8 @@ summary: Timeline of guardrail helper changes mirrored from Sweetistics and rela
 
 ## Unreleased
 
+- Preserve release recovery state and remove temporary signing keys and notes after failures on Bash 5, matching macOS Bash behavior.
+
 - Put Codex worker launch flags first in `codex-first`: copy-verbatim fresh/resume lines with Fast service tier, a no-subset rule, and a running-worker check.
 
 - Upload macOS release archives before publishing, preserve release/tag/commit state on failures, retry transient enclosure downloads, and retain changelog section spacing in release notes.

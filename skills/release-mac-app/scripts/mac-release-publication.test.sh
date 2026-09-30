@@ -18,6 +18,12 @@ source "$LIBRARY"
 cd "$FIXTURE/repo"
 
 record() { printf '%s\n' "$*" >>"$FIXTURE/events"; }
+mktemp() {
+  local temp_path
+  temp_path=$(command mktemp "$@")
+  printf '%s\n' "$temp_path" >>"$FIXTURE/temp-files"
+  printf '%s\n' "$temp_path"
+}
 git() {
   record "git $*"
   if [[ "$SCENARIO" == push-failure && "$*" == "push origin HEAD:$RELEASE_BRANCH" ]]; then
@@ -78,7 +84,10 @@ mac_release_load() {
   MAC_RELEASE_PACKAGE_CMD=fixture-package
 }
 mac_release_load_1password_env() { :; }
-mac_release_key_args_and_validate() { :; }
+mac_release_key_args_and_validate() {
+  printf 'synthetic signing key\n' >"$FIXTURE/signing-key"
+  printf -v "$2" '%s' "$FIXTURE/signing-key"
+}
 mac_release_prepare_codesign_keychain() { :; }
 mac_release_restore_codesign_keychains() { record keychain-cleanup; }
 clear_sparkle_caches() { :; }
@@ -157,8 +166,16 @@ APPCAST
     [[ "$result" == 0 ]] || { cat "$fixture/output" >&2; exit 1; }
   else
     [[ "$result" != 0 ]] || { echo "$scenario unexpectedly succeeded" >&2; exit 1; }
-    grep -Fq 'preserving release, tags, and appcast commit' "$fixture/output"
+    grep -Fq 'preserving release, tags, and appcast commit' "$fixture/output" || {
+      cat "$fixture/output" >&2
+      echo "$scenario lost release recovery state" >&2
+      exit 1
+    }
   fi
+  [[ ! -e "$fixture/signing-key" ]] || { echo "$scenario leaked signing key" >&2; exit 1; }
+  while IFS= read -r temp_path; do
+    [[ ! -e "$temp_path" ]] || { echo "$scenario leaked temporary file" >&2; exit 1; }
+  done <"$fixture/temp-files"
   current_head=$(git -C "$fixture/repo" rev-parse HEAD)
   [[ "$current_head" != "$initial_head" ]]
   [[ "$(git -C "$fixture/repo" rev-parse v1.2.3^{})" == "$current_head" ]]

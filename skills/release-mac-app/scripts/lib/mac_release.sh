@@ -1769,7 +1769,7 @@ mac_release_codesign_run() {
   return "$command_rc"
 }
 
-mac_release_release() {
+mac_release_release() (
   mac_release_load
   require_bin git gh
   local release_branch current_branch
@@ -1783,7 +1783,9 @@ mac_release_release() {
   mac_release_load_1password_env
   mac_release_run_cmd "precheck" "${MAC_RELEASE_PRECHECK:-}"
   KEY_ARGS=()
-  local key_file="" notes_md="" release_id="" publication_attempted=0 appcast_committed=0
+  # Bash 5 unwinds function locals before EXIT traps on failure. Keep recovery
+  # state in this subshell so cleanup can still remove files and report progress.
+  key_file="" notes_md="" release_id="" publication_attempted=0 appcast_committed=0
   # shellcheck disable=SC2329 # invoked via EXIT trap
   cleanup_release() {
     local rc=$?
@@ -1862,4 +1864,4 @@ mac_release_release() {
   [[ -n "${key_file:-}" ]] && rm -f "$key_file"
   [[ -n "${notes_md:-}" ]] && rm -f "$notes_md"
   echo "Release ${MARKETING_VERSION} complete."
-}
+)
