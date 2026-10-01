@@ -1,5 +1,10 @@
 # Agent Scripts
 
+> Fork of [steipete/agent-scripts](https://github.com/steipete/agent-scripts) for Ram's machines.
+> `AGENTS.MD` is rewritten for this setup (RTK, graphify, no Peter/OpenClaw specifics); `codex-first` is removed.
+> `scripts/sync-skills` preserves foreign skill symlinks (e.g. `~/.agents/skills`) and mirrors `~/.codex/skills` only with `SYNC_CODEX_LOCAL=1`.
+> Update everything: `~/Projects/agent-scripts/scripts/update`. Upstream changes are cherry-picked, not merged blindly.
+
 Shared agent instructions, skills, and small portable helpers for Peter's local workspaces.
 
 This repo is the canonical place for:

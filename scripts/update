@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Pull this fork, re-sync skill/rule links, and report unmerged upstream (steipete) commits.
+set -euo pipefail
+cd "$(dirname "$0")/.."
+git pull --ff-only --quiet origin main
+scripts/sync-skills
+git fetch --quiet upstream main
+behind=$(git rev-list --count HEAD..upstream/main)
+[ "$behind" = 0 ] || echo "upstream has $behind new commit(s): git -C $PWD log --oneline HEAD..upstream/main  (cherry-pick what you want)"

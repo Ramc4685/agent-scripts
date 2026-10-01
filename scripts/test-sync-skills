@@ -43,7 +43,7 @@ new_case() {
   manager="$fixture_home/Projects/manager/skills"
   output="$case_root/output"
 }
-run_sync() { HOME="$fixture_home" /bin/bash "$sync" "$@"; }
+run_sync() { SYNC_CODEX_LOCAL=1 HOME="$fixture_home" /bin/bash "$sync" "$@"; }
 run_audit() { HOME="$fixture_home" /bin/bash "$audit" "$@"; }
 make_skill() {
   mkdir -p "$1/assets"

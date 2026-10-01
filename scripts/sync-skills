@@ -143,6 +143,13 @@ link() {
     return 0
   fi
   [ "$(readlink "$2" 2>/dev/null)" = "$1" ] && return 0
+  # Foreign symlink (user-installed skill, e.g. ~/.agents/skills): keep it.
+  if [ -L "$2" ]; then
+    case $(readlink "$2") in
+      "$AGENT_SKILLS"* | "$MANAGER_SKILLS"* | "$CODEX_ROOT"* | "$AGENTS_MD") ;;
+      *) printf 'skip %s: foreign link preserved -> %s\n' "$2" "$(readlink "$2")"; return 0 ;;
+    esac
+  fi
   ln -sfn "$1" "$2"
   note "link $2 -> $1"
 }
@@ -186,7 +193,8 @@ claim() { # claim <root> <label>; first root to claim a name wins.
 }
 claim "$AGENT_SKILLS" agent-scripts
 claim "$MANAGER_SKILLS" manager
-claim "$CODEX_ROOT" codex-local
+# Codex-local extras are opt-in: SYNC_CODEX_LOCAL=1 scripts/sync-skills
+[ "${SYNC_CODEX_LOCAL:-0}" = 1 ] && claim "$CODEX_ROOT" codex-local
 
 for i in "${!names[@]}"; do
   link "${targets[$i]}" "$CLAUDE_ROOT/${names[$i]}"
