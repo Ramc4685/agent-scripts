@@ -6,8 +6,6 @@ summary: Timeline of guardrail helper changes mirrored from Sweetistics and rela
 
 ## Unreleased
 
-- Add a `mirofish` skill and global pointer for MiroFish multi-agent simulations of user, market, and public reactions.
-
 - Fix the Markdown converter commands to install PDF and Office extras, and document charset overrides for text files. Thanks @pereponkin! (#43)
 
 - Update Puppeteer Core to 25.12.0 and youtube-transcript-plus to 2.0.3; run skill metadata validation and browser profile regression tests in CI.

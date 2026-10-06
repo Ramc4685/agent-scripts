@@ -25,7 +25,6 @@
 
 - RTK: shell commands are transparently rewritten by the `rtk` hook. Use `rtk gain` / `rtk discover` / `rtk proxy <cmd>` directly. Details: @~/.claude/RTK.md
 - graphify: when `graphify-out/graph.json` exists, start codebase questions with `graphify query "<q>"`, `graphify path "<A>" "<B>"`, or `graphify explain "<concept>"`; use `graphify-out/wiki/index.md` for navigation; read `GRAPH_REPORT.md` only for broad architecture review. After code edits run `graphify update .`. `/graphify` = invoke the `graphify` skill first.
-- MiroFish: for "how will users/customers/the public react if we ship X?" (launches, pricing, comms, policy, stakeholder what-ifs), suggest a swarm simulation; ask before running (token cost, data leaves machine). Workflow: `mirofish` skill.
 - Parallel/background work (long gates, monitors, workers): run as harness-tracked background tasks, never `&`-detached.
 
 ## Project Defaults
