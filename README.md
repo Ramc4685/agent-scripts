@@ -4,6 +4,7 @@
 > `AGENTS.MD` is rewritten for this setup (RTK, graphify, no Peter/OpenClaw specifics); `codex-first` is removed.
 > `scripts/sync-skills` preserves foreign skill symlinks (e.g. `~/.agents/skills`) and mirrors `~/.codex/skills` only with `SYNC_CODEX_LOCAL=1`.
 > Update everything: `~/Projects/agent-scripts/scripts/update`. Upstream changes are cherry-picked, not merged blindly.
+> It also runs `scripts/update-third-party` (Claude/Codex plugins, `~/.agents/skills`, skill CLIs); launchd runs both Sundays 09:00.
 
 Shared agent instructions, skills, and small portable helpers for Peter's local workspaces.
 

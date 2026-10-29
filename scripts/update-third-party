@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+# Refresh third-party agent skills for Claude Code + Codex: plugins, the shared
+# ~/.agents/skills folder, and the CLIs those skills drive. Called by scripts/update
+# and weekly by launchd. Steps run independently; failures are reported at the end.
+set -uo pipefail
+
+failed=()
+run() { printf '\n== %s\n' "$*"; "$@" || failed+=("$*"); }
+
+versions() {
+  claude plugin list --json | jq -r '.[] | "claude \(.id) \(.version)"'
+  codex plugin list --json | jq -r '.installed[] | select(.enabled) | "codex \(.pluginId) \(.version)"'
+}
+before=$(versions 2>/dev/null)
+
+run claude plugin marketplace update
+for id in $(claude plugin list --json | jq -r '.[] | select(.scope == "user") | .id'); do
+  run claude plugin update "$id" --scope user
+done
+
+run codex plugin marketplace upgrade
+# Re-adding is Codex's refresh path for plugins from Git marketplaces; it is idempotent.
+for id in $(codex plugin list --json | jq -r '.installed[] | select(.enabled and .marketplaceSource.sourceType == "git") | .pluginId'); do
+  run codex plugin add "$id"
+done
+
+cd "$HOME" # npx installers treat a project directory as project scope
+run npx -y skills update -g
+run npx -y impeccable@latest update --scope=global --yes
+run npm install -g rea-agents@latest @openwhispr/cli@latest
+run brew upgrade worktrunk
+
+changed=$(diff <(printf '%s\n' "$before") <(versions 2>/dev/null) | sed -n 's/^> //p')
+printf '\n== changed plugins\n%s\n' "${changed:-none}"
+notice=""
+grep -q '^codex ' <<<"$changed" && notice="Codex plugins changed: re-approve hooks in /hooks if prompted."
+[ "${#failed[@]}" -eq 0 ] || notice="${#failed[@]} step(s) failed: ${failed[*]}. $notice"
+if [ -n "$notice" ]; then
+  echo "$notice"
+  osascript -e "display notification \"${notice//\"/\'}\" with title \"Agent skills update\"" 2>/dev/null || true
+fi
+[ "${#failed[@]}" -eq 0 ]

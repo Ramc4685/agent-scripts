@@ -7,3 +7,4 @@ scripts/sync-skills
 git fetch --quiet upstream main
 behind=$(git rev-list --count HEAD..upstream/main)
 [ "$behind" = 0 ] || echo "upstream has $behind new commit(s): git -C $PWD log --oneline HEAD..upstream/main  (cherry-pick what you want)"
+scripts/update-third-party

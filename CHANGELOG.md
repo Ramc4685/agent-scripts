@@ -6,6 +6,8 @@ summary: Timeline of guardrail helper changes mirrored from Sweetistics and rela
 
 ## Unreleased
 
+- Add `scripts/update-third-party` to refresh Claude Code and Codex plugins, shared `~/.agents/skills`, and skill CLIs from `scripts/update`, reporting failures and Codex hook re-trust needs.
+
 - Fix the Markdown converter commands to install PDF and Office extras, and document charset overrides for text files. Thanks @pereponkin! (#43)
 
 - Update Puppeteer Core to 25.12.0 and youtube-transcript-plus to 2.0.3; run skill metadata validation and browser profile regression tests in CI.

@@ -26,6 +26,7 @@
 - RTK: shell commands are transparently rewritten by the `rtk` hook. Use `rtk gain` / `rtk discover` / `rtk proxy <cmd>` directly. Details: @~/.claude/RTK.md
 - graphify: when `graphify-out/graph.json` exists, start codebase questions with `graphify query "<q>"`, `graphify path "<A>" "<B>"`, or `graphify explain "<concept>"`; use `graphify-out/wiki/index.md` for navigation; read `GRAPH_REPORT.md` only for broad architecture review. After code edits run `graphify update .`. `/graphify` = invoke the `graphify` skill first.
 - Parallel/background work (long gates, monitors, workers): run as harness-tracked background tasks, never `&`-detached.
+- Third-party skills, one copy shared by Claude + Codex: repo ships plugins for both → `claude plugin` + `codex plugin` at user scope; skills only → `npx skills add <repo> -g -a claude-code -a codex` (lands in `~/.agents/skills`); own skills → this repo. Never hand-copy into `~/.claude/skills`. `scripts/update-third-party` upgrades all weekly (launchd `com.ramc.agent-skills-update`, log `~/Library/Logs/agent-skills-update.log`).
 
 ## Project Defaults
 
