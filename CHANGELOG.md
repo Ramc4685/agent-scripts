@@ -6,6 +6,8 @@ summary: Timeline of guardrail helper changes mirrored from Sweetistics and rela
 
 ## Unreleased
 
+- Add a Skill Routing section to `AGENTS.MD` that names one owner skill per job, with Addy's agent-skills driving workflows and Superpowers kept passive.
+
 - Add `scripts/update-third-party` to refresh Claude Code and Codex plugins, shared `~/.agents/skills`, and skill CLIs from `scripts/update`, reporting failures and Codex hook re-trust needs.
 
 - Fix the Markdown converter commands to install PDF and Office extras, and document charset overrides for text files. Thanks @pereponkin! (#43)

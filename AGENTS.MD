@@ -28,6 +28,22 @@
 - Parallel/background work (long gates, monitors, workers): run as harness-tracked background tasks, never `&`-detached.
 - Third-party skills, one copy shared by Claude + Codex: repo ships plugins for both → `claude plugin` + `codex plugin` at user scope; skills only → `npx skills add <repo> -g -a claude-code -a codex` (lands in `~/.agents/skills`); own skills → this repo. Never hand-copy into `~/.claude/skills`. `scripts/update-third-party` upgrades all weekly (launchd `com.ramc.agent-skills-update`, log `~/Library/Logs/agent-skills-update.log`).
 
+## Skill Routing
+
+One owner per job. Use the owner; reach for another skill only when the user names it or the owner has no answer. These rules outrank any skill that says it must always run (Superpowers included: installed, but it never drives a workflow unprompted).
+
+- Requirements unclear: `agent-skills:interview-me`; rough idea: `agent-skills:idea-refine`.
+- Spec / plan: `agent-skills:spec-driven-development`, then `agent-skills:planning-and-task-breakdown`.
+- Build: `agent-skills:incremental-implementation`. Tests first: `agent-skills:test-driven-development`.
+- Bug: `agent-skills:debugging-and-error-recovery`.
+- Code review: built-in `/code-review`; language depth via the matching `ecc:*-reviewer` agent.
+- Simplify: Ponytail (always on) and `/simplify`. Security: `/security-review`.
+- Ship: `agent-skills:shipping-and-launch`. Git worktrees: `worktrunk`.
+- Library docs: `context7` plugin. Codebase questions: graphify (above).
+- PowerShell: `powershell-master`; its security: `powershell-security`.
+- New UI or page: `taste-skill`. Refine or critique UI: `impeccable`. Diagrams: `archify`.
+- Research with sources: `ecc:deep-research`. Shipped binaries or apps: `reverse-engineer-anything`.
+
 ## Project Defaults
 
 - Bug: regression test when fitting.
