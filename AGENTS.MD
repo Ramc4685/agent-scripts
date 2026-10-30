@@ -34,6 +34,7 @@ One owner per job. Use the owner; reach for another skill only when the user nam
 
 - Requirements unclear: `agent-skills:interview-me`; rough idea: `agent-skills:idea-refine`.
 - Spec / plan: `agent-skills:spec-driven-development`, then `agent-skills:planning-and-task-breakdown`.
+- Architecture: `improve-codebase-architecture` (vocabulary: `codebase-design`); domain terms, `GLOSSARY.md`, ADRs: `domain-modeling`.
 - Build: `agent-skills:incremental-implementation`. Tests first: `agent-skills:test-driven-development`.
 - Bug: `agent-skills:debugging-and-error-recovery`.
 - Code review: built-in `/code-review`; language depth via the matching `ecc:*-reviewer` agent.
