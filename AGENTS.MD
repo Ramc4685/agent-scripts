@@ -11,6 +11,7 @@
 
 - This file is the shared global rule set (`~/Projects/agent-scripts/AGENTS.MD`, fork of `steipete/agent-scripts`). `~/.claude/CLAUDE.md`, `~/.claude/AGENTS.md`, `~/.codex/AGENTS.md` symlink here via `scripts/sync-skills`.
 - Workspace: `~/Documents/Code`. Shared agent setup: `~/Projects/agent-scripts`. Update: `~/Projects/agent-scripts/scripts/update`.
+- Business: user owns RoboThink Central Illinois ("RoboThink"). Private details, local only, never commit: @~/.claude/RoboThink.md
 - "Make a global note" = terse edit here, then commit + push this repo. Repo-specific notes go in that repo's `AGENTS.md` (or `docs/agent/*` where the repo routes there), below the pointer line.
 - Repo rules win over this file when stricter (gates, release notes, no force push, branch protection). They may restrict, never widen, push/publish authority.
 - Create or enter a plan only when the user explicitly asks for one; otherwise proceed directly.
