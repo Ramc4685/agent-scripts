@@ -6,6 +6,10 @@ summary: Timeline of guardrail helper changes mirrored from Sweetistics and rela
 
 ## Unreleased
 
+- Add a global EGM drift gate (`hooks/claude/egm-drift-gate.sh`, with a self-test): before `git commit` in any repo, each changed folder with a README needs a fresh drift report in `docs/egm/drift/`.
+
+- Add the `agent-team` skill: templates for a lead session plus pinned planner, builder, reviewer, risk-reviewer and mechanical agents, a routing doc and a lead handoff file.
+
 - Route architecture and domain-modeling work to Matt Pocock's `improve-codebase-architecture`, `codebase-design` and `domain-modeling` skills.
 
 - Add a Skill Routing section to `AGENTS.MD` that names one owner skill per job, with Addy's agent-skills driving workflows and Superpowers kept passive.
