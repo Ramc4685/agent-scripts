@@ -36,15 +36,15 @@ One owner per job. Use the owner; reach for another skill only when the user nam
 
 - Requirements unclear: `agent-skills:interview-me`; rough idea: `agent-skills:idea-refine`.
 - Spec / plan: `agent-skills:spec-driven-development`, then `agent-skills:planning-and-task-breakdown`.
-- Architecture: `improve-codebase-architecture` (vocabulary: `codebase-design`); domain terms, `GLOSSARY.md`, ADRs: `domain-modeling`.
+- Architecture: agents use `codebase-design`; the full scan is user-only (`/improve-codebase-architecture`, model invocation disabled), so suggest it rather than call it. Domain terms, `GLOSSARY.md`, ADRs: `domain-modeling`.
 - Build: `agent-skills:incremental-implementation`. Tests first: `agent-skills:test-driven-development`.
 - Bug: `agent-skills:debugging-and-error-recovery`.
 - Code review: built-in `/code-review`; language depth via the matching `ecc:*-reviewer` agent.
 - Simplify: Ponytail (always on) and `/simplify`. Security: `/security-review`.
 - Ship: `agent-skills:shipping-and-launch`. Git worktrees: `worktrunk`.
-- Library docs: `context7` plugin. Codebase questions: graphify (above).
+- Library docs: the Context7 connector tools (`resolve-library-id`, then `query-docs`); the `context7` plugin copy needs `/mcp` sign-in and is off. Codebase questions: graphify (above).
 - PowerShell: `powershell-master`; its security: `powershell-security`.
-- New UI or page: `taste-skill`. Refine or critique UI: `impeccable`. Diagrams: `archify`.
+- New UI or page: `taste-skill:design-taste-frontend`. Refine or critique UI: `impeccable`. Diagrams: `archify`.
 - Research with sources: `ecc:deep-research`. Shipped binaries or apps: `reverse-engineer-anything`.
 
 ## Project Defaults
@@ -84,6 +84,6 @@ One owner per job. Use the owner; reach for another skill only when the user nam
 - Destructive Git ops need explicit user request: `reset --hard`, `clean`, `restore`, bare `stash`/`stash pop` (stash is shared across worktrees).
 - End in expected visible checkout/branch.
 - Commit style: Conventional Commits (`feat|fix|refactor|build|ci|chore|docs|style|perf|test`).
-- Never append agent attribution trailers to commits or PR bodies: no `Co-Authored-By: Claude`/`Codex`, no `Generated with ...` footer. Human `Co-authored-by:` credit for real contributors stays.
+- No AI attribution anywhere in git: no `Co-Authored-By: Claude`/`Codex` trailers, no `Generated with ...` footer, and no AI-tool names in branch names, commit subjects or PR titles. Branches use Conventional Commits prefixes (`feat/`, `fix/`, `docs/`, `chore/`...). Human `Co-authored-by:` credit for real contributors stays.
 - No repo-wide search/replace scripts. Small reviewable edits.
 - Unknown changes = other agent. Continue, touching own scope. Conflict: stop + ask.
