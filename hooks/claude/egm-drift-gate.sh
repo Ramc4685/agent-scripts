@@ -24,6 +24,8 @@ target="${target/#\~/$HOME}"
 [ -n "$target" ] && cd "$target" 2>/dev/null
 root=$(git rev-parse --show-toplevel 2>/dev/null) || exit 0
 cd "$root" || exit 0
+# Merge commits bring in files already checked on the other branch; checking them forces a needless drift round.
+[ -f "$(git rev-parse --git-path MERGE_HEAD)" ] && exit 0
 
 mtime() { stat -c %Y "$1" 2>/dev/null || stat -f %m "$1"; }
 
